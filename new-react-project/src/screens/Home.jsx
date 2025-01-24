@@ -2,7 +2,6 @@ import React from "react";
 import GpsFixed from '../components/GpsFixed/GpsFixed.jsx';
 import PinFill  from "../components/PinFill/PinFill.jsx";
 import PinFillWrapper from "../components/PinFillWrapper/PinFillWrapper.jsx";
-import StylePrimarySmall  from "../components/StylePrimarySmall/StylePrimarySmall.jsx";
 import StylePrimarySmallWrapper from "../components/StylePrimarySmallWrapper/StylePrimarySmallWrapper.jsx";
 import StyleSecondary  from "../components/StyleSecondary/StyleSecondary.jsx";
 import StyleSecondaryWrapper  from "../components/StyleSecondaryWrapper/StyleSecondaryWrapper.jsx";
@@ -14,42 +13,11 @@ import IconLinkedin from '../icons/IconLinkedin/IconLinkedin.jsx';
 import IconX from '../icons/IconX/IconX.jsx';
 import IconYoutube1 from '../icons/IconYoutube1/IconYoutube1.jsx';
 import "./style.css";
-
+import Navbar from './NavBar.jsx';
 const Home = () => {
   return (
     <div className="home">
-      <div className="navbar">
-        <img
-          className="parkez-nobg"
-          alt="Parkez nobg"
-          src="https://c.animaapp.com/BPgiiEYf/img/parkez-nobg-1.png"
-        />
-
-        <div className="container">
-          <div className="column">
-            <div className="link">
-              <div className="link-text">Home</div>
-            </div>
-
-            <div className="link-text-wrapper">
-              <div className="link-text-2">Our Services</div>
-            </div>
-
-            <div className="link">
-              <div className="link-text">About Us</div>
-            </div>
-          </div>
-
-          <div className="actions">
-            <StylePrimarySmall
-              className="style-primary-small-true-alternate-false-icon-position-no-icon"
-              divClassName="style-primary-small-instance"
-              text="Sign Up"
-            />
-          </div>
-        </div>
-      </div>
-
+      <Navbar />
       <img
         className="header"
         alt="Header"
