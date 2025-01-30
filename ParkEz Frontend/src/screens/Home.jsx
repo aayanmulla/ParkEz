@@ -10,7 +10,10 @@ import AiEssentialsIconSet from '../icons/AiEssentialslconSet/AiEssentialsIconSe
 import "./style.css";
 import Navbar from './NavBar.jsx';
 import Footer from './Footer.jsx';
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="home">
       <Navbar />
@@ -94,7 +97,8 @@ const Home = () => {
               <div className="row">
                 <div className="div-2">
                   <PinFill />
-                  <div className="text-wrapper-2">Ajeenkya DY Patil</div>
+                  <div className="text-wrapper-2" onClick={() => navigate("/bookings")}
+>Ajeenkya DY Patil</div>
 
                   <p className="text">
                     Available parking spaces and online booking at your
