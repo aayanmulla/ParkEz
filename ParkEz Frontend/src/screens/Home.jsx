@@ -8,7 +8,7 @@ import StyleSecondaryWrapper  from "../components/StyleSecondaryWrapper/StyleSec
 import TypeDefault  from "../components/TypeDefault/TypeDefault.jsx";
 import AiEssentialsIconSet from '../icons/AiEssentialslconSet/AiEssentialsIconSet.jsx';
 import "./style.css";
-import Navbar from './NavBar.jsx';
+import Navbar from './NavBar/NavBar.jsx';
 import Footer from './Footer.jsx';
 import { useNavigate } from "react-router-dom";
 
@@ -118,11 +118,11 @@ const Home = () => {
             </div>
           </div>
 
-          <img
+          {/* <img
             className="placeholder-image"
             alt="Placeholder image"
             src="https://c.animaapp.com/BPgiiEYf/img/placeholder-image.png"
-          />
+          /> */}
         </div>
       </div>
 

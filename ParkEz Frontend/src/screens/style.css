@@ -5,16 +5,6 @@
     position: relative;
   }
   
-  .home .navbar {
-    background-color: var(--semantic-background-color-primary);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: var(--semantic-border-primary);
-    height: 111px;
-    position: relative;
-    width: 1440px;
-  }
-  
   .home .parkez-nobg {
     height: 111px;
     left: 0;

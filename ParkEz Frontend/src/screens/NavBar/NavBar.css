@@ -1,0 +1,71 @@
+.navbar-container {
+    background-color: var(--semantic-background-color-primary);
+    border-bottom: 1px solid var(--semantic-border-primary);
+    height: 111px;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.navbar-logo {
+    height: 90px; /* Adjust as needed */
+    width: auto;
+    margin-right: 5px; 
+}
+
+.navbar-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust this value to control the spacing between navlinks and actions */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px; /* Adjust this value to control the spacing between individual navlinks */
+    align-items: center;
+}
+
+.navbar-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navbar-link-text {
+    color: var(--semantic-link-primary);
+    font-family: "Roboto", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+}
+
+.navbar-link-text:hover {
+    color: var(--semantic-link-hover); /* Define this variable in your CSS */
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-signup-button {
+    background-color: var(--semantic-button-primary);
+    color: var(--semantic-button-text);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-signup-button:hover {
+    background-color: var(--semantic-button-hover); /* Define this variable in your CSS */
+}
