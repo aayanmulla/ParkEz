@@ -13,7 +13,7 @@
 }
 
 .navbar-logo {
-    height: 90px; /* Adjust as needed */
+    height: 90px; 
     width: auto;
     margin-right: 5px; 
 }
@@ -21,12 +21,12 @@
 .navbar-content {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust this value to control the spacing between navlinks and actions */
+    gap: 10px; 
 }
 
 .navbar-links {
     display: flex;
-    gap: 20px; /* Adjust this value to control the spacing between individual navlinks */
+    gap: 20px; 
     align-items: center;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .navbar-link-text:hover {
-    color: var(--semantic-link-hover); /* Define this variable in your CSS */
+    color: var(--semantic-link-hover); 
 }
 
 .navbar-actions {
@@ -67,5 +67,5 @@
 }
 
 .navbar-signup-button:hover {
-    background-color: var(--semantic-button-hover); /* Define this variable in your CSS */
+    background-color: var(--semantic-button-hover);
 }
