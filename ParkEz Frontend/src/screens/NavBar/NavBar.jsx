@@ -13,7 +13,6 @@ const Navbar = () => {
                 alt="Parkez Logo"
                 src="https://c.animaapp.com/BPgiiEYf/img/parkez-nobg-1.png"
             />
-
             <div className="navbar-content">
                 <div className="navbar-links">
                     <div className="navbar-link">

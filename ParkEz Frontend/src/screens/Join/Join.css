@@ -1,0 +1,33 @@
+.Cta {
+    width: 100%;
+    background-color: var(--cta-bg);
+    color: white;
+    /* margin-left: 60px; */
+    /* text-align: center; */
+    padding: 80px 20px;
+  }
+  .div-3 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    margin-left: 50px;
+  }
+  .heading-4{
+    align-items: flex-start;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--primary-bg);
+    margin-bottom: 0px;
+    margin-top: -50px;
+   
+  }
+  .text-4{
+    color: var(--primary-bg);
+  }
+  .actions-2{
+    padding: auto;
+  }
+  .by-clicking-sign-up{
+    margin-left: 50px;
+    margin-bottom: 0px;
+  }

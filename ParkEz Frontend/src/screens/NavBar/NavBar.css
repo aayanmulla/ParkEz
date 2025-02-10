@@ -6,22 +6,25 @@
     max-width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start; /* Align items at the start of the container */
     padding: 0 20px;
     box-sizing: border-box;
-    gap: 10px;
+    gap: 0; /* Ensure no gap between logo and content */
 }
 
 .navbar-logo {
     height: 90px; 
     width: auto;
-    margin-right: 5px; 
+    margin-right: 0; /* Remove any margin here */
+    padding-right: 735px; /* Add padding to the right */
 }
 
 .navbar-content {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px; /* Space between content items */
+    margin-left: 0; /* Ensure no margin on the left */
+    padding-left: 0; /* Remove any padding on the left */
 }
 
 .navbar-links {
@@ -54,6 +57,8 @@
 .navbar-actions {
     display: flex;
     align-items: center;
+    background-color: black;
+    color: white;
 }
 
 .navbar-signup-button {
