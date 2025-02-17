@@ -1,77 +1,45 @@
-import React from "react";
-import GpsFixed from '../../components/GpsFixed/GpsFixed.jsx';
+import React, { useEffect, useRef } from "react";
+import Typed from "typed.js";
 import "./Home.css";
 import Navbar from '../NavBar/NavBar.jsx';
+import Process from '../Process/Process.jsx';
 import Footer from '../Footer/Footer.jsx';
 import Locations from "../Locations/Locations.jsx";
 import Features from '../Features/Features.jsx';
 import Join from "../Join/Join.jsx";
 import FAQ from "../FAQ/FAQ.jsx";
+
 const Home = () => {
+  const titleRef = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(titleRef.current, {
+      strings: ["Revolutionizing Urban \n Parking Management with \n Ease"], // Only this line
+      typeSpeed: 25,  
+      backSpeed: 10,  
+      showCursor: false,
+      cursorChar: "|",  
+      loop: false,
+    });
+
+    return () => typed.destroy();  
+  }, []);
+
   return (
     <div className="home">
       <Navbar />
-      <img
-        className="header"
-        alt="Header"
-        src="https://c.animaapp.com/BPgiiEYf/img/header---9--.png"
-      />
-
-      <div className="layout">
-        <div className="container-2">
-          <div className="content">
-            <div className="list">
-              <div className="list-item">
-                <GpsFixed className="gps-fixed-instance" />
-                <div className="div-2">
-                  <div className="heading">Find Nearby Parking</div>
-
-                  <p className="text">
-                    Use our search feature to find the nearest ParkEz location
-                    with available parking spots. Enter your location or let our
-                    website detect it for you automatically.
-                  </p>
-                </div>
-              </div>
-
-              <div className="list-item">
-                <img
-                  className="img-2"
-                  alt="Rectangle"
-                  src="https://c.animaapp.com/BPgiiEYf/img/rectangle-329-1@2x.png"
-                />
-
-                <div className="div-2">
-                  <div className="heading">Book Your Spot</div>
-
-                  <p className="text">
-                    Select your preferred parking slot and book it online. Enjoy
-                    the convenience of reserving your spot in advance, ensuring
-                    a hassle-free experience when you arrive.
-                  </p>
-                </div>
-              </div>
-
-              <div className="list-item">
-                <img
-                  className="img-2"
-                  alt="Group"
-                  src="https://c.animaapp.com/BPgiiEYf/img/group@2x.png"
-                />
-
-                <div className="div-2">
-                  <div className="heading">Find And Go</div>
-
-                  <p className="text">
-                    Upon arrival, follow the directions to your reserved spot.
-                    Our automated system ensures a smooth parking experience.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <section className="home-body">
+        <img src="images/home.jpeg" alt="home" className="home-img" />
+        <h1 className="title"><span ref={titleRef}></span></h1>
+        <p className="home-content">
+          ParkEz simplifies your parking experience with innovative solutions 
+          tailored for modern urban living. Discover the convenience of real-time 
+          availability and online booking at your fingertips.
+        </p>
+        <button className="home-search-button">Search</button>
+        <button className="home-learn-more-button">Learn More</button>
+      </section>
+      <Process />
       <Locations />
       <Features />      
       <Join />

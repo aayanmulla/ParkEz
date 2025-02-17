@@ -6,6 +6,23 @@ import "./NavBar.css";
 const Navbar = () => {
     const navigate = useNavigate();
 
+    const handleServicesClick = () => {
+        
+        // Check if element exists
+        const servicesSection = document.getElementById("services");
+        
+        if (servicesSection) {
+            
+            // Try direct scroll first
+            servicesSection.scrollIntoView({ behavior: "smooth" });
+            
+            // Fallback to setTimeout approach
+            setTimeout(() => {
+                servicesSection.scrollIntoView({ behavior: "smooth" });
+            }, 200);
+        } 
+    };
+
     return (
         <nav className="navbar-container">
             <img
@@ -18,7 +35,11 @@ const Navbar = () => {
                     <div className="navbar-link">
                         <span className="navbar-link-text">Home</span>
                     </div>
-                    <div className="navbar-link">
+                    <div 
+                        className="navbar-link" 
+                        onClick={handleServicesClick}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <span className="navbar-link-text">Our Services</span>
                     </div>
                     <div className="navbar-link">

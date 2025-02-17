@@ -29,7 +29,7 @@ const FAQ = () => {
               </div>
 
               <div className="answer">
-                <p className="text-6">
+                <p className="text-5">
                   ParkEz is an innovative parking management solution that
                   simplifies the process of finding and booking parking spaces.
                   Our system leverages IoT and cloud technology to provide
@@ -51,7 +51,7 @@ const FAQ = () => {
               </div>
 
               <div className="answer">
-                <p className="text-6">
+                <p className="text-5">
                   Booking a parking slot is easy with ParkEz. Simply search for
                   your desired location, select an available slot, and complete
                   the booking process online. You&#39;ll receive a confirmation
@@ -72,7 +72,7 @@ const FAQ = () => {
               </div>
 
               <div className="answer">
-                <p className="text-6">
+                <p className="text-5">
                   Yes, ParkEz offers EV charging stations at select locations.
                   You can easily find these stations while searching for
                   parking. Enjoy the convenience of charging your electric
@@ -93,7 +93,7 @@ const FAQ = () => {
               </div>
 
               <div className="answer">
-                <p className="text-6">
+                <p className="text-5">
                   If no parking slots are available, you will receive a
                   notification indicating that the location is full. We
                   recommend checking back later or exploring alternative nearby
@@ -114,7 +114,7 @@ const FAQ = () => {
               </div>
 
               <div className="answer">
-                <p className="text-6">
+                <p className="text-5">
                   You can contact our support team through the &#39;Contact&#39;
                   section on our website. We are here to assist you with any
                   inquiries or issues you may have. Your satisfaction is our
