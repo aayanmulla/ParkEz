@@ -1,0 +1,143 @@
+.container-2 {
+    background-color: var(--secondary-bg);
+    padding: 40px;
+    margin-top: 0;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 1385px; /* Set a fixed width */
+    height: auto; /* Auto height to fit content */
+    position: relative; /* For absolute positioning of aboutus-img4 */
+}
+
+.aboutus-title {
+    width: 800px;
+    position: relative;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: black;
+}
+.aboutus-title2{
+    position: relative;
+    left: 350px;
+    font-size: 3rem;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+    color: black;
+}
+
+.aboutus-content {
+    width: 800px;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+}
+
+.aboutus-img {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.image-text-container {
+    display: inline-block;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.aboutus-img1, .aboutus-img2, .aboutus-img3 {
+    width: auto;
+    height: 250px;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Specific margins for individual images */
+.aboutus-img1 {
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+.aboutus-img2 {
+    margin-top: 0;
+    width: 250px
+}
+
+.aboutus-img3 {
+    margin-top: 0;
+    margin-right: 25px;
+    width: 250px;
+
+}
+
+.image-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: black;
+    margin-top: 10px;
+}
+
+.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+/* This is the key fix - make sure the show class fully overrides */
+.show {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+}
+
+/* Ensure images inside show containers are visible */
+.image-text-container.show .aboutus-img1,
+.image-text-container.show .aboutus-img2,
+.image-text-container.show .aboutus-img3 {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.aboutus-img4 {
+    width: auto;
+    height: 550px;
+    position: absolute;
+    top: 40px; /* Adjust as needed */
+    right: 40px; /* Positioning from right edge */
+    max-width: 550px; /* Ensure it doesn't overflow */
+}
+
+/* Add media query for better responsiveness */
+@media (max-width: 1400px) {
+    .container-2 {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .aboutus-title, .aboutus-content {
+        width: 60%;
+    }
+    
+    .aboutus-img4 {
+        height: auto;
+        max-height: 400px;
+        top: 60px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .aboutus-img4 {
+        position: relative;
+        top: unset;
+        right: unset;
+        margin: 20px auto;
+        display: block;
+    }
+    
+    .aboutus-title, .aboutus-content {
+        width: 100%;
+    }
+}

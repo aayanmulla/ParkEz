@@ -43,6 +43,7 @@
     margin-bottom: 10px;
   }
   .text-5{
+    width: 1425px;
     font-size: 16px;
     line-height: 1.5;
     color: var(--text-color);

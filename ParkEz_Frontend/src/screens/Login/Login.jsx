@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { signInWithGoogle } from "../Firebase" // Import the Google Sign-In function
-import "./Login.css"; // Ensure you have this CSS file for styling
 import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
+import "./Login.css"; // Ensure you have this CSS file for styling
 
 
 const Login = () => {

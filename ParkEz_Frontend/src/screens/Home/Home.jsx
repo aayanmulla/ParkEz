@@ -6,6 +6,7 @@ import Process from '../Process/Process.jsx';
 import Footer from '../Footer/Footer.jsx';
 import Locations from "../Locations/Locations.jsx";
 import Features from '../Features/Features.jsx';
+import AboutUs from '../AboutUs/AboutUs.jsx';
 import Join from "../Join/Join.jsx";
 import FAQ from "../FAQ/FAQ.jsx";
 
@@ -41,7 +42,8 @@ const Home = () => {
       </section>
       <Process />
       <Locations />
-      <Features />      
+      <Features /> 
+      <AboutUs />     
       <Join />
       <FAQ />
       <Footer />      

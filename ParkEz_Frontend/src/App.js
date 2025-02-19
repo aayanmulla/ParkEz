@@ -7,6 +7,7 @@ import Bookings from './screens/Bookings/Bookings.jsx'; // Updated import path
 import Signup from './screens/Signup/Signup.jsx';
 import ForgotPassword from './screens/ForgotPassword/ForgotPassword.jsx';
 
+
 const App = () => {
   return(
     <BrowserRouter> 

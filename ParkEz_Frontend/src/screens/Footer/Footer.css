@@ -82,6 +82,7 @@
 
 .footer-bottom {
     margin-top: 2.5rem; /* mt-10 */
+    margin-bottom: 0px;
     text-align: center;
     font-size: 0.875rem; /* text-sm */
     color: #9ca3af; /* text-gray-400 */
