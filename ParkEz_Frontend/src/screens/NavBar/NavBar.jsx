@@ -16,15 +16,18 @@ const Navbar = () => {
         }
     }, []);
 
-    const handleServicesClick = () => {
-        const servicesSection = document.getElementById("services");
-        if (servicesSection) {
-            servicesSection.scrollIntoView({ behavior: "smooth" });
-            setTimeout(() => {
-                servicesSection.scrollIntoView({ behavior: "smooth" });
-            }, 200);
-        } 
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
     };
+    
+    // Handlers for specific sections
+    const handleHomeClick = () => scrollToSection("home");
+    const handleServicesClick = () => scrollToSection("services");
+    const handleAboutUsClick = () => scrollToSection("aboutus");
+    
 
     const handleLogout = () => {
         // ✅ Clear localStorage on logout
@@ -46,7 +49,11 @@ const Navbar = () => {
         </Link>
             <div className="navbar-content">
                 <div className="navbar-links">
-                    <div className="navbar-link">
+                    <div 
+                        className="navbar-link"
+                        onClick={handleHomeClick}
+                        style={{ cursor: 'pointer' }}
+                    >
                         <span className="navbar-link-text">Home</span>
                     </div>
                     <div 
@@ -56,7 +63,10 @@ const Navbar = () => {
                     >
                         <span className="navbar-link-text">Our Services</span>
                     </div>
-                    <div className="navbar-link">
+                    <div className="navbar-link"
+                        onClick={handleAboutUsClick}
+                        style={{ cursor: 'pointer' }} 
+                    >
                         <span className="navbar-link-text">About Us</span>
                     </div>
                 </div>
@@ -66,7 +76,7 @@ const Navbar = () => {
                     <div className="navbar-profile">
                         <img 
                             className="profile-image"
-                            src={user.profileImage || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} 
+                            //src={user.profileImage || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} 
                             alt="User Profile"
                         />
                         <span className="username">{user.username}</span>

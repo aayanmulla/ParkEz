@@ -27,27 +27,29 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <Navbar />
-      <section className="home-body">
-        <img src="images/home.jpeg" alt="home" className="home-img" />
-        <h1 className="title"><span ref={titleRef}></span></h1>
-        <p className="home-content">
-          ParkEz simplifies your parking experience with innovative solutions 
-          tailored for modern urban living. Discover the convenience of real-time 
-          availability and online booking at your fingertips.
-        </p>
-        <button className="home-search-button">Search</button>
-        <button className="home-learn-more-button">Learn More</button>
-      </section>
-      <Process />
-      <Locations />
-      <Features /> 
-      <AboutUs />     
-      <Join />
-      <FAQ />
-      <Footer />      
-    </div>
+    <section id="home">
+      <div className="home">
+        <Navbar />
+        <section className="home-body">
+          <img src="images/home.jpeg" alt="home" className="home-img" />
+          <h1 className="title"><span ref={titleRef}></span></h1>
+          <p className="home-content">
+            ParkEz simplifies your parking experience with innovative solutions 
+            tailored for modern urban living. Discover the convenience of real-time 
+            availability and online booking at your fingertips.
+          </p>
+          <button className="home-search-button">Search</button>
+          <button className="home-learn-more-button">Learn More</button>
+        </section>
+        <Process />
+        <Locations />
+        <Features /> 
+        <AboutUs />     
+        <Join />
+        <FAQ />
+        <Footer />      
+      </div>
+    </section>
   );
 };
 
