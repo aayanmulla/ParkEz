@@ -7,7 +7,7 @@ import "./Login.css"; // Ensure you have this CSS file for styling
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" });
-    const [user, setUser] = useState(null);
+    const [setUser] = useState(null);
     const [error, setError] = useState("");
     const navigate = useNavigate(); // ✅ Hook for navigation
 

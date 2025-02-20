@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/signup', signupRoutes);
 app.use('/api', authRoutes);
+app.use("/api/auth", authRoutes); //forgot password
 
 // Set the port from environment variables or default to 5000
 const PORT = process.env.PORT || 5000;
