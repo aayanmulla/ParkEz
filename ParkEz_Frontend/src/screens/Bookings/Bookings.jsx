@@ -1,80 +1,27 @@
-// import React, { useEffect, useState } from "react";
-// import "./Bookings.css"; // Assuming you have a CSS file for styling
+import React from "react";
+import "./Bookings.css";
+import Navbar from "../NavBar/NavBar";
 
-// // const Bookings = () => {
-// //   const [slots, setSlots] = useState([]);
-// //   const [totalSlots, setTotalSlots] = useState(0);
-
-// //   useEffect(() => {
-// //     // Fetch slot details from the backend
-// //     axios.get("/api/slots") // Replace with your backend API endpoint
-// //       .then(response => {
-// //         setSlots(response.data);
-// //         setTotalSlots(response.data.length);
-// //       })
-// //       .catch(error => {
-// //         console.error("Error fetching slot details:", error);
-// //       });
-// //   }, []);
-
-// //   return (
-// //     <div className="bookings">
-// //       <h1>Total Slots: {totalSlots}</h1>
-// //       <div className="slots-container">
-// //         {slots.map((slot, index) => (
-// //           <div
-// //             key={index}
-// //             className={`slot ${slot.isAvailable ? "available" : "filled"}`}
-// //           >
-// //             Slot {index + 1}
-// //           </div>
-// //         ))}
-// //       </div>
-// //     </div>
-// //   );
-// // };
-
-// // export default Bookings;
-// function Bookings() {
-//   const [slots, setSlots] = useState([]);
-
-//   useEffect(() => {
-//       // const fetchSlots = () => {
-//       //     fetch("http://localhost:5000/api/parking")
-//       //         .then(res => res.json())
-//       //         .then(data => setSlots(data));
-//       // };
-//       // fetchSlots();
-//       // const interval = setInterval(fetchSlots, 5000); // Refresh every 5 seconds
-//       // return () => clearInterval(interval);
-//   }, []);
-
-//   return (
-//       <div>
-//           <h2>Live Parking Status</h2>
-//           <table>
-//               <thead>
-//                   <tr>
-//                       <th>Slot ID</th>
-//                       <th>Status</th>
-//                       <th>Floor</th>
-//                       <th>Last Updated</th>
-//                   </tr>
-//               </thead>
-//               <tbody>
-//                   {slots.map(slot => (
-//                       <tr key={slot.slot_id}>
-//                           <td>{slot.slot_id}</td>
-//                           <td style={{ color: slot.status === "occupied" ? "red" : slot.status === "reserved" ? "blue" : "green" }}>
-//                               {slot.status}
-//                           </td>
-//                           <td>{slot.slot_id <= 4 ? "Ground Floor" : "First Floor"}</td>
-//                           <td>{new Date(slot.timestamp).toLocaleTimeString()}</td>
-//                       </tr>
-//                   ))}
-//               </tbody>
-//           </table>
-//       </div>
-//   );
-// }
-// export default Bookings;
+const Bookings = () => {
+    return (
+        <div className="bookings-container">
+            <Navbar />
+            <h1 className="bookings-heading">Bookings</h1>
+            <div className="bookings-content">
+                <div className="booking-card">
+                    <h2 className="booking-card-heading">Booking 1</h2>
+                    <p className="booking-card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div className="booking-card">
+                    <h2 className="booking-card-heading">Booking 2</h2>
+                    <p className="booking-card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div className="booking-card">
+                    <h2 className="booking-card-heading">Booking 3</h2>
+                    <p className="booking-card-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+export default Bookings;

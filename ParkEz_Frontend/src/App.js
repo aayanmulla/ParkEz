@@ -17,6 +17,7 @@ const App = () => {
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/bookings' element={<Bookings />} />
+        <Route path='*' element={<h1>404 Not Found</h1>} />
       </Routes>
     </BrowserRouter> 
   );
