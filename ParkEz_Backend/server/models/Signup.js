@@ -17,7 +17,7 @@ const SignupSchema = new mongoose.Schema({
     },
     retypepassword: {
         type: String,
-        required: true
+        required: false
     },
 });
 

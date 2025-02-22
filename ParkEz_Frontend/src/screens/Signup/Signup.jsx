@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
-import axios from "axios"; 
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Signup.css";
+import API_ENDPOINTS from "../../apiEndpoints";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -11,7 +12,12 @@ const Signup = () => {
         retypepassword: "",
     });
 
-    const navigate = useNavigate(); // ✅ Initialize navigate function
+    const [otp, setOtp] = useState("");
+    const [showOtpField, setShowOtpField] = useState(false);
+    const [error, setError] = useState("");
+    // const [emailVerified, setEmailVerified] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,58 +29,84 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Check if passwords match
+    
+        // ✅ Password validation regex
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+        // ✅ Check if password meets the criteria
+        if (!passwordRegex.test(formData.password)) {
+            alert("Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.");
+            return;
+        }
+    
+        // ✅ Check if passwords match
         if (formData.password !== formData.retypepassword) {
             alert("Passwords do not match!");
             return;
         }
-
+    
         try {
-            // ✅ Send a POST request using Axios
-            const response = await axios.post("http://localhost:5001/api/signup", {
+            // Send OTP to email
+            const response = await axios.post(API_ENDPOINTS.SIGNUP, {
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
-                retypepassword: formData.retypepassword,
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                retypepassword: formData.retypepassword
             });
-
-            if (response.status === 201) {
-                const { token, user } = response.data;
-
-                // ✅ Store token & user info in localStorage
-                localStorage.setItem("token", token);
-                localStorage.setItem("user", JSON.stringify(user));
-
-                alert("Signup successful!");
-
-                // ✅ Redirect to Bookings Page
-                navigate("/bookings");
+    
+            if (response.status === 200) {
+                alert("OTP sent to your email. Please verify.");
+                setShowOtpField(true); // Show OTP input field
             }
         } catch (error) {
-            console.error("Signup error:", error);
-
-            // Handle errors properly
-            if (error.response) {
-                alert(error.response.data.msg || "Signup failed. Please try again.");
-            } else {
-                alert("An error occurred. Please try again.");
-            }
+            setError(error.response?.data?.msg || "Signup failed.");
         }
     };
+    
+
+    const handleVerifyOtp = async () => {
+        try {
+            const response = await axios.post(API_ENDPOINTS.VERIFY_OTP, {
+                email: formData.email,
+                otp: otp,
+                username: formData.username,
+                password: formData.password,
+            });
+    
+            if (response.status === 201) {
+                alert("Email verified successfully! Account created.");
+                
+                // ✅ Ensure user data is set properly
+                const userData = {
+                    username: response.data.user.username,
+                    profileImage: response.data.user.profileImage || "", 
+                };
+                localStorage.setItem("user", JSON.stringify(userData));
+                localStorage.setItem("token", response.data.token);
+    
+                // ✅ Check if data is stored correctly
+                console.log("Stored User:", localStorage.getItem("user"));
+    
+                // ✅ Notify other components of change
+                window.dispatchEvent(new Event("storage"));
+    
+                navigate("/bookings"); // Redirect after successful signup
+            }
+        } catch (error) {
+            setError(error.response?.data?.msg || "Invalid OTP. Try again.");
+        }
+    };
+    
+    
+    
 
     return (
         <div className="signup-container">
             <div className="signup-card">
-                <div className="top-right-links">
-                    <span>Already have an account? <a href="/login" className="login-link">Login</a></span>
-                </div>
                 <h1 className="logo">ParkEz</h1>
-                <h2>Sign Up</h2>
+                <div className="top-right-links">
+                    <span>New User? <a href="/login">Login</a></span>
+                </div>
                 <p>Register to continue</p>
 
                 <form className="signup-form" onSubmit={handleSubmit}>
@@ -118,9 +150,29 @@ const Signup = () => {
                             required
                         />
                     </div>
-                    <button type="submit" className="signup-button">
-                        SIGN UP
-                    </button>
+
+                    {!showOtpField ? (
+                        <button type="submit" className="signup-button">
+                            SIGN UP
+                        </button>
+                    ) : (
+                        <>
+                            <div className="input-group">
+                                <input
+                                    type="text"
+                                    placeholder="Enter OTP"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <button type="button" className="signup-button" onClick={handleVerifyOtp}>
+                                Verify OTP
+                            </button>
+                        </>
+                    )}
+
+                    {error && <p className="error-text">{error}</p>}
                 </form>
             </div>
         </div>
