@@ -75,12 +75,21 @@ const Signup = () => {
     
             if (response.status === 201) {
                 alert("Email verified successfully! Account created.");
-                
+                // ✅ Get the first letter of the username
+                const firstLetter = formData.username.charAt(0).toUpperCase();
+
+                // ✅ Assign profile image
+                const profileImageUrl = response.data.user.profileImage || 
+                    `https://ui-avatars.com/api/?name=${firstLetter}&background=random&color=fff&size=128`;
+
+         
                 // ✅ Ensure user data is set properly
+                // ✅ Store user data in localStorage
                 const userData = {
                     username: response.data.user.username,
-                    profileImage: response.data.user.profileImage || "", 
+                    profileImage: profileImageUrl,  // ✅ Assign generated/returned profile image
                 };
+      
                 localStorage.setItem("user", JSON.stringify(userData));
                 localStorage.setItem("token", response.data.token);
     
