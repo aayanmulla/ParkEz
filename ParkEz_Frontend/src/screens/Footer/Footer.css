@@ -64,8 +64,8 @@
 
 .footer-links {
     display:flex;
-    padding-left: 20rem;
-    gap: 2rem; /* gap-8 */
+    padding-left: 35rem;
+    gap: 10rem; /* gap-8 */
     
 }
 

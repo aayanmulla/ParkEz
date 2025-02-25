@@ -14,7 +14,7 @@ const Navbar = () => {
     // Function to get user data
     const fetchUser = () => {
         const storedUser = localStorage.getItem("user");
-        if (storedUser) {
+        if (storedUser) { 
             const parsedUser = JSON.parse(storedUser);
 
             // ✅ Generate profile image if missing
@@ -73,18 +73,29 @@ const Navbar = () => {
         navigate("/login");
     };
 
-    const handleNavigateToServices = () => {
-        if (window.location.pathname === "/") {
-            // Scroll smoothly to the Our Services section
-            const servicesSection = document.getElementById("services");
-            if (servicesSection) {
-                servicesSection.scrollIntoView({ behavior: "smooth" });
-            }
-        } else {
-            // Navigate to home page first, then scroll
-            navigate("/", { state: { scrollToServices: true } });
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+    
+            // Wait for the scrolling to complete before making adjustments
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    if (sectionId === "services") {
+                        window.scrollBy({ top: -70, behavior: "smooth" }); // Adjust as needed
+                    } else if (sectionId === "aboutus") {
+                        window.scrollBy({ top: -50, behavior: "smooth" }); // Adjust as needed
+                    }
+                });
+            }, 700); // Adjust timeout duration to ensure smooth scrolling
         }
     };
+    
+    
+    // Handlers for specific sections
+    const handleHomeClick = () => scrollToSection("home");
+    const handleServicesClick = () => scrollToSection("services");
+    const handleAboutUsClick = () => scrollToSection("aboutus");
 
     const handleFillProfile = () =>{
         navigate("/fillprofile", {state: {goToFillProfile: true}});
@@ -103,13 +114,13 @@ const Navbar = () => {
 
             <div className="navbar-content">
                 <div className="navbar-links">
-                    <div className="navbar-link" onClick={() => navigate("/")} style={{ cursor: 'pointer' }}>
+                    <div className="navbar-link" onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
                         <span className="navbar-link-text">Home</span>
                     </div>
-                    <div className="navbar-link" onClick={handleNavigateToServices} style={{ cursor: 'pointer' }}>
+                    <div className="navbar-link" onClick={handleServicesClick} style={{ cursor: 'pointer' }}>
                         <span className="navbar-link-text">Our Services</span>
                     </div>
-                    <div className="navbar-link" onClick={() => navigate("/aboutus")} style={{ cursor: 'pointer' }}>
+                    <div className="navbar-link" onClick={handleAboutUsClick} style={{ cursor: 'pointer' }}>
                         <span className="navbar-link-text">About Us</span>
                     </div>
                 </div>

@@ -7,6 +7,30 @@ import IconYoutube1 from "../../icons/IconYoutube1/IconYoutube1.jsx";
 import "../Footer/Footer.css";
 
 const Footer = () => {
+    const scrollToSection = (sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+    
+            // Wait for the scrolling to complete before making adjustments
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    if (sectionId === "services") {
+                        window.scrollBy({ top: -70, behavior: "smooth" }); // Adjust as needed
+                    } else if (sectionId === "aboutus") {
+                        window.scrollBy({ top: -50, behavior: "smooth" }); // Adjust as needed
+                    }
+                });
+            }, 700); // Adjust timeout duration to ensure smooth scrolling
+        }
+    };
+    
+    
+    // Handlers for specific sections
+    // const handleHomeClick = () => scrollToSection("home");
+    const handleServicesClick = () => scrollToSection("services");
+    const handleAboutUsClick = () => scrollToSection("aboutus");
+
     return (
         <footer className="footer">
             {/* Logo Section */}
@@ -53,12 +77,12 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Navigation Links
+                Navigation Links
                 <div className="footer-links">
                     <div className="footer-links-column">
                         <p className="footer-link">Contact Us</p>
-                        <p className="footer-link">About Us</p>
-                        <p className="footer-link">Services</p>
+                        <p className="footer-link" onClick={handleAboutUsClick} style={{ cursor: 'pointer' }}>About Us</p>
+                        <p className="footer-link"  onClick={handleServicesClick} style={{ cursor: 'pointer' }}>Services</p>
                         <p className="footer-link">Support</p>
                         <p className="footer-link">Blog</p>
                     </div>
@@ -70,7 +94,7 @@ const Footer = () => {
                         <p className="footer-link">Partners</p>
                         <p className="footer-link">Events</p>
                     </div>
-                </div> */}
+                </div>
             </div>
 
             {/* Footer Bottom Section */}

@@ -18,13 +18,13 @@
 
 /* ✅ Change Background & Text Color on Scroll */
 .navbar-container.scrolled {
-    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    background: white; /* Dark background */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container.scrolled .navbar-link-text,
 .navbar-container.scrolled .logout {
-    color: white; /* Change text color to white */
+    color: black; /* Change text color to white */
 }
 
 /* ✅ Logo Styling */
@@ -63,7 +63,7 @@
 .navbar-link-text {
     color: var(--semantic-link-primary);
     font-family: "Roboto", Helvetica;
-    font-size: 27px;
+    font-size: 20px;
     font-weight: 400;
     line-height: 28px;
     white-space: nowrap;
@@ -132,13 +132,15 @@
 
 /* ✅ Change Logout Text Color on Scroll */
 .navbar-container.scrolled .logout {
-    color: white;
+    color: black;
 }
 
 /* ✅ Sign-Up Button */
 .navbar-actions {
     display: flex;
     align-items: center;
+    background-color: black;
+    color: white
 }
 
 .navbar-signup-button {
