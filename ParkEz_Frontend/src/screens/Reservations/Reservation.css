@@ -1,0 +1,90 @@
+.reservation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 80px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border: 2px solid white;
+    overflow-x: auto;
+    width: auto;
+    min-width: 1472px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Flexbox container to keep images side by side */
+.reservation-images {
+    display: flex;
+    justify-content: center; /* Centers images horizontally */
+    align-items: center; /* Aligns images vertically */
+    gap: 400px; /* Adds space between images */
+    width: 100%;
+    margin-top: 20px;
+}
+
+.r-1, .r-2,.r-3 {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+}
+.reservation-content{
+    display: flex;
+    justify-content: center; /* Centers images horizontally */
+    align-items: center; /* Aligns images vertically */
+    gap: 300px; /* Adds space between images */
+    width: 100%;
+    margin-top: 20px;
+}
+.reservation-content-2{
+    display: flex;
+    justify-content: center; /* Centers images horizontally */
+    align-items: center; /* Aligns images vertically */
+    gap: 200px; /* Adds space between images */
+    width: 1500px;
+    position: relative;
+    top: -40px;
+}
+.reservation-content p{
+    font-size: 1.5rem;
+}
+.reservation-content-2 p{
+    font-size: 1rem;
+    color: white;
+}
+.reservation-content p,.reservation-content-2 p{
+    /* font-size: 0.5rem; */
+    color: white;
+}
+.reservation-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    left: -600px;
+    height: 2.5rem;
+    width: 150px; /* Increased width */
+    padding: 10px 20px; /* Better spacing */
+    background-color: white; /* Nice blue shade */
+    color: black; /* White text */
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px; /* Smooth rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect */
+.reservation-button:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Optional: If the left position is an issue */
+@media (max-width: 768px) {
+    .reservation-button {
+        left: 0; /* Adjust position on smaller screens */
+    }
+}
+
