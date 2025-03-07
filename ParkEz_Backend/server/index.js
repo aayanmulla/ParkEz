@@ -5,6 +5,8 @@ const connectDB = require('./db/db');
 require('dotenv').config();
 const signupRoutes = require('./routes/signup');
 const authRoutes = require('./routes/authRoutes');
+const sensorRoutes = require('./routes/sensorRoutes');
+const parkingRoutes = require("./routes/parkingRoutes");
 const cors = require('cors');
 
 // Connect to MongoDB
@@ -44,6 +46,8 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/signup', signupRoutes);
 app.use('/api', authRoutes);
+app.use("/api/sensors", sensorRoutes);
+app.use("/api/parking", parkingRoutes);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
