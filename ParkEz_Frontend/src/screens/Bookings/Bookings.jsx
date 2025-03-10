@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Bookings.css";
 import Navbar from "../NavBar/NavBar";
 import Reservation from "../Reservations/Reservation";
 import Footer from "../Footer/Footer";
-import axios from "axios";
 
 const Bookings = () => {
     const [parkingSlots, setParkingSlots] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchParkingSlots = async () => {
             try {
-                const response = await axios.get("http://localhost:5001/api/parking/slots");
-                let slots = response.data;
-
-                // Reorder slots as per the required display format
-                slots = [
-                    slots[0], slots[1], slots[2], slots[3], // First row
-                    slots[7], slots[6], slots[5], slots[4]  // Second row (Reversed)
-                ];
-
-                setParkingSlots(slots);
+                const response = await fetch("http://localhost:5001/api/parking/slots");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch parking slots");
+                }
+                const data = await response.json();
+                setParkingSlots(data.parkingSlots || []);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching parking slots:", error);
+                setError(error.message);
+                setLoading(false);
             }
         };
 
         fetchParkingSlots();
+        const interval = setInterval(fetchParkingSlots, 5000); // Refresh every 5 seconds
+        return () => clearInterval(interval);
     }, []);
 
     return (
@@ -34,27 +36,30 @@ const Bookings = () => {
             <Navbar />
             <div className="bookings-content">
                 <h1 className="bookings-heading">Ajeenkya DY Patil Parking Zone</h1>
-                <div className="bookings-grid">
-                    {parkingSlots.length > 0 ? (
-                        parkingSlots.map((slot) => (
+
+                {loading ? (
+                    <p>Loading parking slots...</p>
+                ) : error ? (
+                    <p className="error-message">{error}</p>
+                ) : (
+                    <div className="bookings-grid">
+                        {parkingSlots.map((slot, index) => (
                             <div
-                                key={slot.slotNumber}
-                                className={`parking-slot ${slot.isOccupied ? (slot.status ? "under-construction" : "occupied") : "available"}`}
+                                key={index}
+                                className={`parking-slot ${
+                                    slot.isOccupied === null ? "under-construction" :
+                                    slot.isOccupied ? "occupied" : "available"
+                                }`}
                             >
-                                <span>Slot {slot.slotNumber}</span>
+                                <span>Slot {slot.id}</span>
                                 <span>
-                                    {slot.status
-                                        ? "Under Construction"
-                                        : slot.isOccupied
-                                        ? "Occupied"
-                                        : "Available"}
+                                    {slot.isOccupied === null ? "Under Construction" :
+                                    slot.isOccupied ? "Occupied" : "Available"}
                                 </span>
                             </div>
-                        ))
-                    ) : (
-                        <p>Loading slots...</p>
-                    )}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
             <Reservation />
             <Footer />

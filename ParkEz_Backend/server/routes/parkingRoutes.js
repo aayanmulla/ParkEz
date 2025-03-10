@@ -1,41 +1,52 @@
 const express = require("express");
 const router = express.Router();
-const SensorReading = require("../models/SensorReadings"); // Import the model
+const SensorReading = require("../models/SensorReadings");
 
-// GET available parking slots based on sensor distances
+// API to get parking slots based on sensor data
 router.get("/slots", async (req, res) => {
     try {
-        // Fetch the most recent sensor data
-        const latestReading = await SensorReading.findOne().sort({ timestamp: -1 });
+        // Fetch the latest sensor reading
+        const latestReading = await SensorReading.findOne()
+            .sort({ timestamp: -1 })
+            .select("timestamp distances");
 
-        if (!latestReading) {
-            return res.status(404).json({ message: "No sensor data found" });
+        if (!latestReading || !Array.isArray(latestReading.distances)) {
+            return res.status(404).json({ message: "No valid sensor data available" });
         }
 
-        // Process the 6 sensor readings
-        const sensorSlots = latestReading.distances.map((sensor) => ({
-            slotNumber: sensor.sensor_id,
-            isOccupied: sensor.distance > 0 // If distance > 0, slot is occupied
+        // Process sensor data correctly
+        const sensorData = latestReading.distances.map((distance, index) => ({
+            sensor_id: index + 1, // Assign sensor ID sequentially
+            distance: distance || 0 // Avoid undefined values
         }));
 
-        // Add 2 extra slots as 'Under Construction'
-        while (sensorSlots.length < 6) {
-            sensorSlots.push({
-                slotNumber: sensorSlots.length + 1,
-                isOccupied: true // Mark as occupied to avoid confusion
-            });
-        }
+        // Define 8 parking slots
+        let parkingSlots = Array.from({ length: 8 }, (_, index) => ({
+            id: index + 1,
+            isOccupied: true // Default all to occupied
+        }));
 
-        const totalSlots = [
-            ...sensorSlots,
-            { slotNumber: 7, isOccupied: true, status: "Under Construction" },
-            { slotNumber: 8, isOccupied: true, status: "Under Construction" }
+        // Update occupancy based on sensor readings (for first 6 slots only)
+        sensorData.forEach((sensor, index) => {
+            if (index < 6) {
+                const isAvailable = sensor.distance > 5; // Mark available if distance > 5
+                parkingSlots[index].isOccupied = !isAvailable;
+            }
+        });
+
+        // Ensure slot 7 & 8 are always "Under Construction"
+        parkingSlots[6] = { id: 7, isOccupied: null };
+        parkingSlots[7] = { id: 8, isOccupied: null };
+
+        // Reorder slots (1-2-3-4 top, 8-7-6-5 bottom)
+        const reorderedSlots = [
+            parkingSlots[0], parkingSlots[1], parkingSlots[2], parkingSlots[3],
+            parkingSlots[7], parkingSlots[6], parkingSlots[5], parkingSlots[4]
         ];
 
-        res.json(totalSlots);
+        res.json({ parkingSlots: reorderedSlots });
     } catch (error) {
-        console.error("Error fetching parking slots:", error);
-        res.status(500).json({ error: "Failed to fetch parking slots" });
+        res.status(500).json({ message: "Server error" });
     }
 });
 
