@@ -44,8 +44,24 @@ router.get("/slots", async (req, res) => {
             parkingSlots[7], parkingSlots[6], parkingSlots[5], parkingSlots[4]
         ];
 
+        // Cleanup mechanism: Delete the oldest 3 entries if there are 10 or more entries
+        const totalEntries = await SensorReading.countDocuments();
+        if (totalEntries >= 10) {
+            const oldestEntries = await SensorReading.find()
+                .sort({ timestamp: 1 }) // Sort by timestamp in ascending order (oldest first)
+                .limit(3); // Limit to the oldest 3 entries
+
+            // Delete the oldest 3 entries
+            await SensorReading.deleteMany({
+                _id: { $in: oldestEntries.map(entry => entry._id) }
+            });
+
+            console.log("🗑️ Deleted 3 oldest entries to maintain database size.");
+        }
+
         res.json({ parkingSlots: reorderedSlots });
     } catch (error) {
+        console.error("❌ Error fetching parking slots:", error);
         res.status(500).json({ message: "Server error" });
     }
 });
