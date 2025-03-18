@@ -7,6 +7,7 @@ const signupRoutes = require('./routes/signup');
 const authRoutes = require('./routes/authRoutes');
 const sensorRoutes = require('./routes/sensorRoutes');
 const parkingRoutes = require("./routes/parkingRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 const cors = require('cors');
 
 // Connect to MongoDB
@@ -48,6 +49,7 @@ app.use('/api/signup', signupRoutes);
 app.use('/api', authRoutes);
 app.use("/api/sensors", sensorRoutes);
 app.use("/api/parking", parkingRoutes);
+app.use("/api/payments", paymentRoutes);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

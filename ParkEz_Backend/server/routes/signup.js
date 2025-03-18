@@ -5,6 +5,5 @@ const router = express.Router();
 
 // Signup route
 router.post('/', signup);
-router.post('/verifyOTP', verifyOTP)
-
+router.post('/verifyOTP', verifyOTP);
 module.exports = router;

@@ -6,6 +6,7 @@ import Login from './screens/Login/Login.jsx';
 import Bookings from './screens/Bookings/Bookings.jsx'; // Updated import path
 import Signup from './screens/Signup/Signup.jsx';
 import ForgotPassword from './screens/ForgotPassword/ForgotPassword.jsx';
+import Payments from './screens/Payments/Payments.jsx'; // Updated import path
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/bookings' element={<Bookings />} />
         <Route path='*' element={<h1>404 Not Found</h1>} />
+        <Route path='/payments' element={<Payments />} />
       </Routes>
     </BrowserRouter> 
   );
