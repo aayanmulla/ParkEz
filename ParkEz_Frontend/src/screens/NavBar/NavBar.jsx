@@ -14,7 +14,7 @@ const Navbar = () => {
     // Function to get user data
     const fetchUser = () => {
         const storedUser = localStorage.getItem("user");
-        if (storedUser) { 
+        if (storedUser) { 
             const parsedUser = JSON.parse(storedUser);
 
             // ✅ Generate profile image if missing
@@ -91,7 +91,6 @@ const Navbar = () => {
         }
     };
     
-    
     // Handlers for specific sections
     const handleHomeClick = () => scrollToSection("home");
     const handleServicesClick = () => scrollToSection("services");
@@ -102,55 +101,71 @@ const Navbar = () => {
     }
 
     return (
-        <nav className={`navbar-container ${isScrolled ? "scrolled" : ""}`}>
-            <Link to="/">
-                <img
-                    className="navbar-logo"
-                    alt="Parkez Logo"
-                    src="https://c.animaapp.com/BPgiiEYf/img/parkez-nobg-1.png"
-                    style={{ cursor: "pointer" }}
-                />
-            </Link>
+        <nav className={`navbar navbar-expand-lg navbar-light ${isScrolled ? "scrolled" : ""}`}>
+            <div className="container-fluid">
+                <Link to="/" className="navbar-brand">
+                    <img
+                        className="navbar-logo"
+                        alt="Parkez Logo"
+                        src="https://c.animaapp.com/BPgiiEYf/img/parkez-nobg-1.png"
+                        style={{ cursor: "pointer" }}
+                    />
+                </Link>
 
-            <div className="navbar-content">
-                <div className="navbar-links">
-                    <div className="navbar-link" onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
-                        <span className="navbar-link-text">Home</span>
-                    </div>
-                    <div className="navbar-link" onClick={handleServicesClick} style={{ cursor: 'pointer' }}>
-                        <span className="navbar-link-text">Our Services</span>
-                    </div>
-                    <div className="navbar-link" onClick={handleAboutUsClick} style={{ cursor: 'pointer' }}>
-                        <span className="navbar-link-text">About Us</span>
-                    </div>
-                </div>
+                {/* Toggle button for mobile view */}
+                <button 
+                    className="navbar-toggler" 
+                    type="button" 
+                    data-bs-toggle="collapse" 
+                    data-bs-target="#navbarContent" 
+                    aria-controls="navbarContent" 
+                    aria-expanded="false" 
+                    aria-label="Toggle navigation"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-                {/* ✅ Show Profile if Logged In, Otherwise Show Sign Up */}
-                {user ? (
-                    <div className="navbar-profile" ref={dropdownRef}>
-                        <div className="profile-container">
-                            <img 
-                                className="profile-image"
-                                src={user.profileImage || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} 
-                                alt="User Profile"
-                                onClick={() => setDropdownOpen(!dropdownOpen)} // ✅ Toggle dropdown on click
-                            />
-                            {dropdownOpen && (
-                                <div className="profile-dropdown">
-                                    <p className="dropdown-item logout" onClick={handleLogout}>Logout</p>
-                                    <p className='dropdown-item fillprofile' onClick={handleFillProfile}>Update Profile</p>
-                                </div>
-                            )}
+                {/* Navbar content */}
+                <div className="collapse navbar-collapse" id="navbarContent">
+                    <div className="navbar-nav  mb-2 mb-lg-0">
+                        <div className="nav-item" onClick={handleHomeClick} style={{ cursor: 'pointer' }}>
+                            <span className="nav-link">Home</span>
+                        </div>
+                        <div className="nav-item" onClick={handleServicesClick} style={{ cursor: 'pointer' }}>
+                            <span className="nav-link">Our Services</span>
+                        </div>
+                        <div className="nav-item" onClick={handleAboutUsClick} style={{ cursor: 'pointer' }}>
+                            <span className="nav-link">About Us</span>
                         </div>
                     </div>
-                ) : (
-                    <div className="navbar-actions" onClick={() => navigate("/signup")}>
-                        <StylePrimarySmall
-                            className="navbar-signup-button"
-                            text="Sign Up"
-                        />
-                    </div>
-                )}
+
+                    {/* ✅ Show Profile if Logged In, Otherwise Show Sign Up */}
+                    {user ? (
+                        <div className="navbar-profile" ref={dropdownRef}>
+                            <div className="profile-container">
+                                <img 
+                                    className="profile-image"
+                                    src={user.profileImage || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} 
+                                    alt="User Profile"
+                                    onClick={() => setDropdownOpen(!dropdownOpen)} // ✅ Toggle dropdown on click
+                                />
+                                {dropdownOpen && (
+                                    <div className="profile-dropdown">
+                                        <p className="dropdown-item logout" onClick={handleLogout}>Logout</p>
+                                        <p className='dropdown-item fillprofile' onClick={handleFillProfile}>Update Profile</p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="navbar-actions" onClick={() => navigate("/signup")}>
+                            <StylePrimarySmall
+                                className="navbar-signup-button"
+                                text="Sign Up"
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
         </nav>
     );

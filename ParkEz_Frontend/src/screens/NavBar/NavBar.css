@@ -1,5 +1,5 @@
 /* ✅ Make Navbar Fixed to Top */
-.navbar-container {
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -9,7 +9,7 @@
     border-bottom: 1px solid var(--semantic-border-primary);
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 0;
     box-sizing: border-box;
     z-index: 1000;
@@ -17,18 +17,18 @@
 }
 
 /* ✅ Change Background & Text Color on Scroll */
-.navbar-container.scrolled {
-    background: white; /* Dark background */
+.navbar.scrolled {
+    background: white; /* Light background */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-container.scrolled .navbar-link-text,
-.navbar-container.scrolled .logout {
-    color: black; /* Change text color to white */
+.navbar.scrolled .nav-link,
+.navbar.scrolled .dropdown-item {
+    color: black; /* Change text color to black */
 }
 
 /* ✅ Logo Styling */
-.navbar-logo {
+.navbar-brand .navbar-logo {
     height: 90px;
     width: auto;
     padding: 0 20px;
@@ -38,29 +38,31 @@
 }
 
 /* ✅ Navbar Content */
-.navbar-content {
+.navbar-collapse {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-left: 0;
     padding-left: 0;
+    width: 100%;
 }
 
 /* ✅ Navigation Links */
-.navbar-links {
+.navbar-nav {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     align-items: center;
+    justify-content: center;
 }
 
-.navbar-link {
+.nav-item {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
 
-.navbar-link-text {
+.nav-link {
     color: var(--semantic-link-primary);
     font-family: "Roboto", Helvetica;
     font-size: 20px;
@@ -70,7 +72,7 @@
     transition: color 0.3s ease;
 }
 
-.navbar-link-text:hover {
+.nav-link:hover {
     color: var(--semantic-link-hover);
 }
 
@@ -131,7 +133,7 @@
 }
 
 /* ✅ Change Logout Text Color on Scroll */
-.navbar-container.scrolled .logout {
+.navbar.scrolled .logout {
     color: black;
 }
 
@@ -140,7 +142,7 @@
     display: flex;
     align-items: center;
     background-color: black;
-    color: white
+    color: white;
 }
 
 .navbar-signup-button {
@@ -155,4 +157,58 @@
 
 .navbar-signup-button:hover {
     background-color: var(--semantic-button-hover);
+}
+
+/* ✅ Mobile Toggle Button */
+.navbar-toggler {
+    border: none !important;
+    outline: none !important;
+    margin-left: auto;
+}
+
+.navbar-toggler-icon {
+    background-color: var(--semantic-link-primary);
+    border-radius: 4px;
+    position: relative;
+    top: -70px;
+}
+
+/* ✅ Adjustments for Mobile View */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        display: flex;
+        flex-direction: column; /* ✅ Stack only when collapsed */
+        align-items: flex-end;
+        width: 100%;
+        gap:0px;
+    }
+    .navbar-nav {
+        width: 100%;
+        justify-content: center; /* ✅ Center the items */
+        text-align: center;
+        align-items: flex-end;
+        position: relative;
+        top: -70px;
+        gap:0px;
+    }
+    .navbar-logo {
+        padding-right: 20px; /* Reduce padding for mobile */
+        
+    }
+
+    .navbar-nav {
+        gap: 10px; /* Reduce gap between nav items */
+    }
+
+    .nav-link {
+        font-size: 16px; /* Reduce font size for mobile */
+    }
+
+    .profile-dropdown {
+        top: -40px; /* Adjust dropdown position */
+    }
+    .profile-image{
+        position: relative;
+        top: -70px;
+    }
 }

@@ -1,5 +1,8 @@
 .home-img{
   width: 100%;
+  max-width: auto; /* Adjust as needed */
+  height: auto;  /* Maintain aspect ratio */
+  object-fit: cover; 
 }
 .title {
   width: 90%; /* Adjust based on your layout */
