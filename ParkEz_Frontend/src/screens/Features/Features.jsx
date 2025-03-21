@@ -33,7 +33,7 @@ const Features = () => {
     return (
         <section id="services">
             <div className="layout">
-                <div className="container-2">
+                <div className="f-container-2">
                     <div className="div-4">
                         <p className="heading-2">
                             Explore Our Innovative Parking Solutions
@@ -48,21 +48,17 @@ const Features = () => {
                             <div className="features-grid">
                                 {features.map((feature, index) => (
                                     <Card key={index} className="feature-card shadow-lg rounded-lg">
-                                        <CardContent className="flex flex-col items-center">
-                                            {feature.icon && feature.icon}
-                                            {feature.image && (
-                                                <img src={feature.image} alt={feature.title} className="feature-image" />
-                                            )}
-                                            <Typography variant="h6" className="font-semibold mt-2">
+                                        <CardContent className="feature-card-content">
+                                            <div className="feature-icon-container">
+                                                {feature.icon && feature.icon}
+                                                {feature.image && (
+                                                    <img src={feature.image} alt={feature.title} className="feature-image" />
+                                                )}
+                                            </div>
+                                            <Typography variant="h6" className="feature-title">
                                                 {feature.title}
                                             </Typography>
-                                            {["Online Slot Booking", "EV Charging Station"].includes(feature.title) && (
-                                                <>
-                                                    <br />
-                                                    <br />
-                                                </>
-                                            )}
-                                            <Typography variant="body2" color="textSecondary" className="text-center">
+                                            <Typography variant="body2" color="textSecondary" className="feature-description">
                                                 {feature.description}
                                             </Typography>
                                         </CardContent>
