@@ -48,7 +48,7 @@ const FAQ = () => {
 
         <div className="accordion-list">
           {faqItems.map((item, index) => (
-            <div className="div-4" key={index}>
+            <div className="faq-div-4" key={index}>
               <div 
                 className="question" 
                 onClick={() => toggleFAQ(index)}
