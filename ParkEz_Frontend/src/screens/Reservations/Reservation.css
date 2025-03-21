@@ -2,89 +2,142 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 80px;
+    justify-content: center;
+    margin: 40px auto;
     background-color: black;
     color: white;
-    padding: 20px;
+    padding: 30px 20px;
     border: 2px solid white;
-    overflow-x: auto;
-    width: auto;
-    min-width: 1472px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-/* Flexbox container to keep images side by side */
-.reservation-images {
-    display: flex;
-    justify-content: center; /* Centers images horizontally */
-    align-items: center; /* Aligns images vertically */
-    gap: 400px; /* Adds space between images */
+.reservation-heading {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
     width: 100%;
-    margin-top: 20px;
 }
 
-.r-1, .r-2,.r-3 {
-    width: 150px; /* Adjust size as needed */
-    height: auto;
-}
-.reservation-content{
+.reservation-steps {
     display: flex;
-    justify-content: center; /* Centers images horizontally */
-    align-items: center; /* Aligns images vertically */
-    gap: 300px; /* Adds space between images */
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
-    margin-top: 20px;
+    flex-wrap: nowrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 0 5%;
 }
-.reservation-content-2{
+
+.step-item {
     display: flex;
-    justify-content: center; /* Centers images horizontally */
-    align-items: center; /* Aligns images vertically */
-    gap: 200px; /* Adds space between images */
-    width: 1500px;
-    position: relative;
-    top: -40px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    padding: 15px;
 }
-.reservation-content p{
+
+.step-img {
+    width: 120px;
+    height: 120px; /* Fixed height to make all images equal size */
+    object-fit: cover; /* This maintains aspect ratio while filling the container */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+    border-radius: 4px; /* Optional: adds a slight rounded corner */
+}
+
+.step-img:hover {
+    transform: scale(1.1);
+}
+
+.step-title {
     font-size: 1.5rem;
+    margin: 10px 0;
+    width: 100%;
 }
-.reservation-content-2 p{
+
+.step-description {
     font-size: 1rem;
     color: white;
+    margin: 5px 0;
+    width: 100%;
 }
-.reservation-content p,.reservation-content-2 p{
-    /* font-size: 0.5rem; */
-    color: white;
-}
+
 .reservation-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    left: -600px;
     height: 2.5rem;
-    width: 150px; /* Increased width */
-    padding: 10px 20px; /* Better spacing */
-    background-color: white; /* Nice blue shade */
-    color: black; /* White text */
+    width: 150px;
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
     font-size: 1rem;
     font-weight: bold;
     border: none;
-    border-radius: 8px; /* Smooth rounded corners */
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    margin: 0px 0;
+    align-self: center;
+    /* margin-left: 5%; */
+
 }
 
-/* Hover effect */
 .reservation-button:hover {
-    background-color: #0056b3; /* Darker blue */
-    transform: scale(1.05); /* Slight zoom effect */
+    background-color: #0056b3;
+    color: white;
+    transform: scale(1.05);
 }
 
-/* Optional: If the left position is an issue */
-@media (max-width: 768px) {
-    .reservation-button {
-        left: 0; /* Adjust position on smaller screens */
+/* Media Queries for Responsiveness */
+@media (max-width: 992px) {
+    .reservation-steps {
+        padding: 0 2%;
     }
 }
 
+@media (max-width: 768px) {
+    .reservation-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .step-item {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .reservation-heading {
+        font-size: 1.5rem;
+    }
+    
+    .reservation-button {
+        align-self: center;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .reservation-container {
+        padding: 20px 10px;
+    }
+    
+    .step-title {
+        font-size: 1.2rem;
+    }
+    
+    .step-description {
+        font-size: 0.9rem;
+    }
+    
+    .reservation-button {
+        width: 120px;
+        font-size: 0.9rem;
+    }
+}
