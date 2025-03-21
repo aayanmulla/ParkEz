@@ -25,9 +25,6 @@ const Footer = () => {
         }
     };
     
-    
-    // Handlers for specific sections
-    // const handleHomeClick = () => scrollToSection("home");
     const handleServicesClick = () => scrollToSection("services");
     const handleAboutUsClick = () => scrollToSection("aboutus");
 
@@ -44,29 +41,25 @@ const Footer = () => {
             <div className="footer-content">
                 {/* Contact & Social Media */}
                 <div className="footer-contact">
-                    <div className="footer-contact">
-                        {/* Address */}
-                        <div className="footer-address">
-                            <h3 className="footer-title">Address:</h3>
-                            <p className="footer-text">
-                                ADYPSOE, Lohegaon, Pune - 412105
-                            </p>
-                        </div>
-
-                        {/* Contact */}
-                        <div className="footer-contact">
-                            <h3 className="footer-title">Contact:</h3>
-                            <div className="footer-contact-details">
-                                <p className="footer-text">
-                                    1800 123 4567
-                                </p>
-                                <p className="footer-text">
-                                    info@parkez.in
-                                </p>
-                            </div>
-                        </div>
+                    {/* Address */}
+                    <div className="footer-address">
+                        <h3 className="footer-title">Address:</h3>
+                        <p className="footer-text">
+                            ADYPSOE, Lohegaon, Pune - 412105
+                        </p>
                     </div>
 
+                    {/* Contact */}
+                    <div className="footer-contact-details">
+                        <h3 className="footer-title">Contact:</h3>
+                        <p className="footer-text">
+                            1800 123 4567
+                        </p>
+                        <p className="footer-text">
+                            info@parkez.in
+                        </p>
+                    </div>
+                    
                     {/* Social Media Links */}
                     <div className="footer-social-icons">
                         <IconFacebook className="w-6 h-6 transition-transform transform hover:scale-110" />
@@ -77,12 +70,12 @@ const Footer = () => {
                     </div>
                 </div>
 
-                Navigation Links
+                {/* Navigation Links */}
                 <div className="footer-links">
                     <div className="footer-links-column">
                         <p className="footer-link">Contact Us</p>
-                        <p className="footer-link" onClick={handleAboutUsClick} style={{ cursor: 'pointer' }}>About Us</p>
-                        <p className="footer-link"  onClick={handleServicesClick} style={{ cursor: 'pointer' }}>Services</p>
+                        <p className="footer-link" onClick={handleAboutUsClick}>About Us</p>
+                        <p className="footer-link" onClick={handleServicesClick}>Services</p>
                         <p className="footer-link">Support</p>
                         <p className="footer-link">Blog</p>
                     </div>
