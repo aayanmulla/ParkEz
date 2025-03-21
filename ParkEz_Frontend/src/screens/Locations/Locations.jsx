@@ -6,6 +6,12 @@ import "./Locations.css";
 
 const Locations = () => {
     const navigate = useNavigate();
+    
+    const handleNavigation = (path) => {
+        navigate(path);
+        window.scrollTo(0, 0); // This will scroll to the top after navigation
+    };
+    
     return (
         <div className="location-layout">
             <div className="location-container">
@@ -37,7 +43,9 @@ const Locations = () => {
                                         </div>
                                         <Typography variant="body2" color="textSecondary">
                                             Available parking spaces and online booking at your fingertips.
-                                            <button className="loc-button" onClick={() => navigate("/bookings")}>Book Now!</button>
+                                            <button className="loc-button" 
+                                            onClick={() => handleNavigation("/bookings")}
+                                            >Book Now!</button>
                                         </Typography>
                                     </CardContent>
                                 </Card>
