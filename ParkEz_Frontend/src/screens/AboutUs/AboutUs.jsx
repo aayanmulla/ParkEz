@@ -48,7 +48,7 @@ const AboutUs = () => {
                 <h2 className="aboutus-title">Our Values</h2>
                 <p className="aboutus-content">Innovation, Reliability, and Customer-Centricity.</p>
                 
-                {/* <h1 className="aboutus-title2 center-title">Visionaries Taking On a Challenge</h1>
+                <h1 className="aboutus-title2 center-title">Visionaries Taking On a Challenge</h1>
                 
                 <div className="aboutus-img">
                     <div ref={(el) => (containersRef.current[0] = el)} className="image-text-container hidden">
@@ -63,7 +63,7 @@ const AboutUs = () => {
                         <img loading="lazy" src="/images/AayanFriend2.jpeg" alt="Friend 2" className="aboutus-img3" />
                         <p className="image-text">CFO</p>
                     </div>
-                </div> */}
+                </div>
             </div>
         </section>
     );
