@@ -54,14 +54,17 @@ const AboutUs = () => {
                     <div ref={(el) => (containersRef.current[0] = el)} className="image-text-container hidden">
                         <img src="/images/AayanMulla.jpeg" alt="Aayan Mulla" className="aboutus-img1" />
                         <p className="image-text">Founder</p>
+                        <p className="a-text">Aayn Mulla</p>
                     </div>
                     <div ref={(el) => (containersRef.current[1] = el)} className="image-text-container hidden">
                         <img src="/images/AayanFriend1.jpeg" alt="Friend 1" className="aboutus-img2" />
                         <p className="image-text">CEO</p>
+                        <p className="a-text">Om Donge</p>
                     </div>
                     <div ref={(el) => (containersRef.current[2] = el)} className="image-text-container hidden">
                         <img loading="lazy" src="/images/AayanFriend2.jpeg" alt="Friend 2" className="aboutus-img3" />
                         <p className="image-text">CFO</p>
+                        <p className="a-text">Kapil Katte</p>
                     </div>
                 </div>
             </div>

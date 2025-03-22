@@ -116,6 +116,15 @@
     object-fit: contain;
 }
 
+.a-text{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: black;
+    margin-top: 10px;
+    position: relative;
+    top: -30px;
+}
+
 /* Improved responsive breakpoints */
 @media (max-width: 1400px) {
     .container-2 {
