@@ -17,11 +17,13 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server for WebSocket
 const wss = new WebSocket.Server({ server });
 
-app.use(cors({
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// app.use(cors({
+//     origin: "http://localhost:3000",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"]
+// }));
+
+app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 
