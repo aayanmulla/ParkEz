@@ -34,7 +34,7 @@ const Bookings = () => {
     // ✅ Function to Handle Booking Payment
     const handlePayment = async (slotId) => {
         const options = {
-            key: "rzp_test_BXkN5c2xpZvM66",
+            key: "rzp_test_8aHz8s9WnoELui",
             amount: 500 * 100, // Amount in paisa (500 INR)
             currency: "INR",
             name: "ParkEz",
