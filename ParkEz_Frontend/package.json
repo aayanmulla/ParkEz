@@ -24,12 +24,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm run dev",
-    "dev": "react-scripts start",
-    "aayan": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "dev": "REACT_APP_API_BASE_URL=http://localhost:5001 react-scripts start",
+    "start:prod": "REACT_APP_API_BASE_URL=https://y-blue-ten.vercel.app react-scripts start",
+    "build": "REACT_APP_API_BASE_URL=https://y-blue-ten.vercel.app react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src",
+    "preview": "vite preview --port 3000"
   },
   "eslintConfig": {
     "extends": [

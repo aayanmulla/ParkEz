@@ -1,59 +1,85 @@
 const express = require('express');
-const http = require('http'); // Required for WebSocket
-const WebSocket = require('ws'); // Import WebSocket library
+const cors = require('cors');
 const connectDB = require('./db/db');
 require('dotenv').config();
+
+// Import routes
 const signupRoutes = require('./routes/signup');
 const authRoutes = require('./routes/authRoutes');
 const sensorRoutes = require('./routes/sensorRoutes');
 const parkingRoutes = require("./routes/parkingRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
-const cors = require('cors');
 
 // Connect to MongoDB
 connectDB();
 
 const app = express();
-const server = http.createServer(app); // Create HTTP server for WebSocket
-const wss = new WebSocket.Server({ server });
 
-// app.use(cors({
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST", "PUT", "DELETE"],
-//     allowedHeaders: ["Content-Type", "Authorization"]
-// }));
+// CORS Configuration
+const allowedOrigins = [
+    "http://localhost:3000", 
+    "https://park-ez-frontend.vercel.app",
+    "https://park-ez-frontend-qggfgmws9-aayan-mullas-projects.vercel.app/"
+];
 
-app.use(cors({ origin: "*" }));
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
 
 app.use(express.json());
 
-// WebSocket connection handler
-wss.on("connection", (ws) => {
-    console.log("New WebSocket client connected");
-
-    ws.on("message", (message) => {
-        console.log("Received message:", message);
-        ws.send("Server received: " + message);
-    });
-
-    ws.on("close", () => {
-        console.log("WebSocket client disconnected");
-    });
-});
-
-// Test Route
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
-
 // Routes
+app.get('/', (req, res) => res.send('Backend is running'));
 app.use('/api/signup', signupRoutes);
 app.use('/api', authRoutes);
 app.use("/api/sensors", sensorRoutes);
 app.use("/api/parking", parkingRoutes);
 app.use("/api/payments", paymentRoutes);
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+// Temporary route for testing
+app.get('/validate-token', (req, res) => {
+    const token = req.header('Authorization')?.replace('Bearer ', '');
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      res.json({ valid: true, decoded });
+    } catch (err) {
+      res.json({ valid: false, error: err.message });
+    }
+  });
+
+// Export for Vercel
+const vercelHandler = app;
+
+// Local development with WebSocket
+if (!process.env.VERCEL) {
+    const http = require('http');
+    const WebSocket = require('ws');
+    
+    const server = http.createServer(app);
+    const wss = new WebSocket.Server({ server });
+
+    wss.on("connection", (ws) => {
+        console.log("New WebSocket client connected");
+        ws.on("message", (message) => {
+            console.log("Received message:", message);
+            ws.send("Server received: " + message);
+        });
+        ws.on("close", () => console.log("WebSocket client disconnected"));
+    });
+
+    const PORT = process.env.PORT || 5001;
+    server.listen(PORT, () => {
+        console.log(`Local server with WebSocket running on port ${PORT}`);
+    });
+}
+
+module.exports = vercelHandler;
