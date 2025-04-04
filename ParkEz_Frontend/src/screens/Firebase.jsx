@@ -5,13 +5,14 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// In your Firebase config file
 const firebaseConfig = {
-  apiKey: "AIzaSyDpLx0ljeLAS7CbTnO3LT_mn0Fmz__BdNc",
-  authDomain: "smart-parking-system-dc9e9.firebaseapp.com",
-  projectId: "smart-parking-system-dc9e9",
-  storageBucket: "smart-parking-system-dc9e9.firebasestorage.app",
-  messagingSenderId: "501790865933",
-  appId: "1:501790865933:web:96f0d8ac83e20bb8383344"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
