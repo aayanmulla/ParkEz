@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "firebase": "^11.2.0",
     "framer-motion": "^12.4.3",
     "razorpay": "^2.9.6",
