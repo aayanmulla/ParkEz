@@ -105,10 +105,10 @@ const Signup = () => {
             setError(error.response?.data?.msg || "Invalid OTP. Try again.");
         }
     };
+   
     
     
     
-
     return (
         <div className="signup-container">
             <div className="signup-card">
