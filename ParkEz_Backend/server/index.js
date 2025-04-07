@@ -15,15 +15,16 @@ const reservedRoutes = require('./routes/reservedRoutes');
 
 const app = express();
 
-// Log startup for debugging
-console.log('App starting...');
+// Enhanced startup logging
+console.log('App starting in environment:', process.env.NODE_ENV || 'development');
+console.log('Current working directory:', process.cwd());
 
-// Connect to MongoDB with error handling
+// Connect to MongoDB with detailed error handling
 connectDB()
   .then(() => console.log('MongoDB connected successfully'))
   .catch(err => {
-    console.error('MongoDB connection failed:', err);
-    // Don't exit in Vercel; log and continue to allow basic routes
+    console.error('MongoDB connection failed:', err.message);
+    // Continue execution for basic routes, but log failure
   });
 
 // ✅ CORS Configuration
@@ -35,6 +36,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function (origin, callback) {
+    console.log('CORS origin check:', origin);
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -48,15 +50,23 @@ app.use(cors({
 
 app.use(express.json());
 
-// Test route
+// Test route with detailed logging
 app.get('/api/test', (req, res) => {
-  console.log('Received request for /api/test');
+  console.log('Received request for /api/test', {
+    method: req.method,
+    url: req.url,
+    headers: req.headers,
+  });
   res.json({ message: 'API is working from Vercel!' });
 });
 
-// Root route
+// Root route with detailed logging
 app.get('/', (req, res) => {
-  console.log('Received request for /');
+  console.log('Received request for /', {
+    method: req.method,
+    url: req.url,
+    headers: req.headers,
+  });
   res.send('Backend is running');
 });
 
@@ -72,24 +82,30 @@ app.use('/api/reserved', reservedRoutes);
 // Token validation route
 app.get('/validate-token', (req, res) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
+  console.log('Validating token:', token ? 'present' : 'missing');
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     res.json({ valid: true, decoded });
   } catch (err) {
+    console.error('Token validation error:', err.message);
     res.json({ valid: false, error: err.message });
   }
 });
 
-// Error handling middleware
+// Enhanced error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Error:', err.stack);
+  console.error('Error middleware triggered:', {
+    stack: err.stack,
+    message: err.message,
+    url: req.url,
+  });
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// Log before exporting
+// Final logging before export
 console.log('Routes registered');
+console.log('Exporting handler with serverless-http');
 
-// Export for Vercel
 module.exports.handler = serverless(app);
 
 // Local development with WebSocket (skipped on Vercel)
@@ -103,7 +119,7 @@ if (!process.env.VERCEL) {
   wss.on('connection', (ws) => {
     console.log('New WebSocket client connected');
     ws.on('message', (message) => {
-      console.log('Received message:', message);
+      console.log('Received WebSocket message:', message);
       ws.send('Server received: ' + message);
     });
     ws.on('close', () => console.log('WebSocket client disconnected'));
