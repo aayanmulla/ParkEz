@@ -44,6 +44,10 @@ app.use(cors({
 
 app.use(express.json());
 
+app.get("/api/test", (req, res) => {
+    res.json({ message: "API is working from Vercel!" });
+  });
+
 // Routes
 app.get('/', (req, res) => res.send('Backend is running'));
 app.use('/api/signup', signupRoutes);
