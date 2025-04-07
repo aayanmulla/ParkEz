@@ -6,7 +6,7 @@ import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
 import "./Login.css"; // Ensure you have this CSS file for styling
 
 // Create axios instance with enhanced configuration
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'https://y-blue-ten.vercel.app/';
+const BACKEND_URL = process.env.REACT_APP_LOCAL_API_BASE_URL || 'https://y-blue-ten.vercel.app';
 
 const api = axios.create({
   baseURL: BACKEND_URL,
@@ -75,7 +75,7 @@ const Login = () => {
                 email: formData.email
             });
     
-            const response = await api.post("/login", formData);
+            const response = await api.post("api/login", formData);
     
             if (response.status === 200) {
                 const { token, user } = response.data;

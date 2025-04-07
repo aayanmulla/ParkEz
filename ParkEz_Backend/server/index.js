@@ -18,11 +18,11 @@ connectDB();
 const app = express();
 
 // CORS Configuration
-const allowedOrigins = [
-    "http://localhost:3000", 
-    "https://park-ez-frontend.vercel.app",
-    "https://park-ez-frontend-aayan-mullas-projects.vercel.app"
-];
+// const allowedOrigins = [
+//     "http://localhost:3000", 
+//     "https://park-ez-frontend.vercel.app",
+//     "https://park-ez-frontend-aayan-mullas-projects.vercel.app"
+// ];
 
 app.use((req, res, next) => {
     const allowedOrigins = [
@@ -37,6 +37,7 @@ app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", origin);
         res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
         res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        res.header("Access-Control-Allow-Credentials", "true");
     }
 
     // Handle preflight requests
