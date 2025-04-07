@@ -1,4 +1,5 @@
 const express = require('express');
+const serverless = require('serverless-http');
 const cors = require('cors');
 const connectDB = require('./db/db');
 const jwt = require('jsonwebtoken');
@@ -90,4 +91,4 @@ if (!process.env.VERCEL) {
     });
 }
 
-module.exports = vercelHandler;
+module.exports.handler = serverless(app);
