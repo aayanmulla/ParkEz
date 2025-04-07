@@ -17,52 +17,29 @@ connectDB();
 
 const app = express();
 
-// CORS Configuration
-// const allowedOrigins = [
-//     "http://localhost:3000", 
-//     "https://park-ez-frontend.vercel.app",
-//     "https://park-ez-frontend-aayan-mullas-projects.vercel.app"
-// ];
+// ✅ CORS Configuration (Fixed)
+const allowedOrigins = [
+    "http://localhost:3000", 
+    "https://park-ez-frontend.vercel.app",
+    "https://park-ez-frontend-aayan-mullas-projects.vercel.app"
+];
 
-app.use((req, res, next) => {
-    const allowedOrigins = [
-        "http://localhost:3000",
-        "https://park-ez-frontend.vercel.app",
-        "https://park-ez-frontend-aayan-mullas-projects.vercel.app"
-    ];
-    
-    const origin = req.headers.origin;
-    
-    if (allowedOrigins.includes(origin)) {
-        res.header("Access-Control-Allow-Origin", origin);
-        res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-        res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.header("Access-Control-Allow-Credentials", "true");
-    }
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-    // Handle preflight requests
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-
-    next();
-});
-
-
-app.options("*", cors()); // Allow preflight for all routes
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", req.headers.origin); // Set dynamic origin
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-    
-    // Handle preflight requests
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-    
-    next();
-});
+// Don't use extra manual CORS headers anymore
+// app.use(...old CORS handlers...) – REMOVED
 
 app.use(express.json());
 
@@ -80,12 +57,12 @@ app.use('/api/reserved', reservedRoutes);
 app.get('/validate-token', (req, res) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      res.json({ valid: true, decoded });
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({ valid: true, decoded });
     } catch (err) {
-      res.json({ valid: false, error: err.message });
+        res.json({ valid: false, error: err.message });
     }
-  });
+});
 
 // Export for Vercel
 const vercelHandler = app;
@@ -94,7 +71,7 @@ const vercelHandler = app;
 if (!process.env.VERCEL) {
     const http = require('http');
     const WebSocket = require('ws');
-    
+
     const server = http.createServer(app);
     const wss = new WebSocket.Server({ server });
 
