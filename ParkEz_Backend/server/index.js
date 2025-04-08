@@ -119,6 +119,7 @@ module.exports = (req, res) => {
       res.status(404).json({ error: 'Not Found' });
     }
   };
+  module.exports = serverless(app);
 
 // Local development with WebSocket (skipped on Vercel)
 if (!process.env.VERCEL) {
