@@ -106,19 +106,19 @@ app.use((err, req, res, next) => {
 console.log('Routes registered');
 console.log('Exporting handler with serverless-http');
 
-module.exports = (req, res) => {
-    console.log('Function invoked');
-    if (req.url === '/api/test') {
-      console.log('Handling /api/test');
-      res.status(200).json({ message: 'API is working from Vercel!' });
-    } else if (req.url === '/') {
-      console.log('Handling /');
-      res.status(200).send('Backend is running');
-    } else {
-      console.log('404 for:', req.url);
-      res.status(404).json({ error: 'Not Found' });
-    }
-  };
+// module.exports = (req, res) => {
+//     console.log('Function invoked');
+//     if (req.url === '/api/test') {
+//       console.log('Handling /api/test');
+//       res.status(200).json({ message: 'API is working from Vercel!' });
+//     } else if (req.url === '/') {
+//       console.log('Handling /');
+//       res.status(200).send('Backend is running');
+//     } else {
+//       console.log('404 for:', req.url);
+//       res.status(404).json({ error: 'Not Found' });
+//     }
+//   };
   module.exports = serverless(app);
 
 // Local development with WebSocket (skipped on Vercel)
