@@ -1,5 +1,4 @@
 const express = require('express');
-const serverless = require('serverless-http');
 const cors = require('cors');
 const connectDB = require('./db/db');
 const jwt = require('jsonwebtoken');
@@ -15,62 +14,46 @@ const reservedRoutes = require('./routes/reservedRoutes');
 
 const app = express();
 
-// Enhanced startup logging
 console.log('App starting in environment:', process.env.NODE_ENV || 'development');
 console.log('Current working directory:', process.cwd());
 
-// Connect to MongoDB with detailed error handling
-connectDB()
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch(err => {
+// Connect to MongoDB with timeout
+const startServer = async () => {
+  console.log('Attempting MongoDB connection...');
+  try {
+    await Promise.race([
+      connectDB(),
+      new Promise((_, reject) => setTimeout(() => reject(new Error('MongoDB connection timeout')), 10000)),
+    ]);
+    console.log('MongoDB connected successfully');
+  } catch (err) {
     console.error('MongoDB connection failed:', err.message);
-    // Continue execution for basic routes, but log failure
-  });
-
-// ✅ CORS Configuration
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://park-ez-frontend.vercel.app',
-  'https://park-ez-frontend-aayan-mullas-projects.vercel.app',
-];
+    process.exit(1); // Exit if connection fails
+  }
+};
 
 app.use(cors({
-  origin: function (origin, callback) {
+  origin: (origin, callback) => {
     console.log('CORS origin check:', origin);
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
+    callback(null, true); // Allow all for debugging, adjust later
   },
   credentials: true,
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(express.json());
 
-// Test route with detailed logging
 app.get('/api/test', (req, res) => {
-  console.log('Received request for /api/test', {
-    method: req.method,
-    url: req.url,
-    headers: req.headers,
-  });
-  res.json({ message: 'API is working from Vercel!' });
+  console.log('Received /api/test');
+  res.json({ message: 'API is working!' });
 });
 
-// Root route with detailed logging
 app.get('/', (req, res) => {
-  console.log('Received request for /', {
-    method: req.method,
-    url: req.url,
-    headers: req.headers,
-  });
-  res.send('Backend is running');
+  console.log('Received /');
+  res.json({ status: 'Backend is running', timestamp: new Date().toISOString() });
+  console.log('Response sent for /');
 });
 
-// Application routes
+// Routes
 app.use('/api/signup', signupRoutes);
 app.use('/api', authRoutes);
 app.use('/api/sensors', sensorRoutes);
@@ -79,68 +62,56 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/slots', reservedRoutes);
 app.use('/api/reserved', reservedRoutes);
 
-// Token validation route
 app.get('/validate-token', (req, res) => {
+  console.log('Validating token');
   const token = req.header('Authorization')?.replace('Bearer ', '');
-  console.log('Validating token:', token ? 'present' : 'missing');
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     res.json({ valid: true, decoded });
   } catch (err) {
-    console.error('Token validation error:', err.message);
     res.json({ valid: false, error: err.message });
   }
+  console.log('Response sent for /validate-token');
 });
 
-// Enhanced error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Error middleware triggered:', {
-    stack: err.stack,
-    message: err.message,
-    url: req.url,
-  });
+  console.error('Error:', err.message);
   res.status(500).json({ error: 'Something went wrong!' });
+  console.log('Error response sent');
 });
 
-// Final logging before export
-console.log('Routes registered');
-console.log('Exporting handler with serverless-http');
+// Start the server (HTTP or WebSocket based on flag)
+const startApplication = async () => {
+  await startServer(); // Connect to MongoDB first
 
-// module.exports = (req, res) => {
-//     console.log('Function invoked');
-//     if (req.url === '/api/test') {
-//       console.log('Handling /api/test');
-//       res.status(200).json({ message: 'API is working from Vercel!' });
-//     } else if (req.url === '/') {
-//       console.log('Handling /');
-//       res.status(200).send('Backend is running');
-//     } else {
-//       console.log('404 for:', req.url);
-//       res.status(404).json({ error: 'Not Found' });
-//     }
-//   };
-  module.exports = serverless(app);
+  if (process.argv.includes('--ws')) {
+    const http = require('http');
+    const WebSocket = require('ws');
 
-// Local development with WebSocket (skipped on Vercel)
-// Replace your existing if (!process.env.VERCEL) block with this:
-if (!process.env.VERCEL && !process.env.VERCEL_DEV) {
-  const http = require('http');
-  const WebSocket = require('ws');
+    console.log('Starting WebSocket server...');
+    const server = http.createServer(app);
+    const wss = new WebSocket.Server({ server });
 
-  const server = http.createServer(app);
-  const wss = new WebSocket.Server({ server });
-
-  wss.on('connection', (ws) => {
-    console.log('New WebSocket client connected');
-    ws.on('message', (message) => {
-      console.log('Received WebSocket message:', message);
-      ws.send('Server received: ' + message);
+    wss.on('connection', (ws) => {
+      console.log('WebSocket client connected');
+      ws.on('message', (message) => {
+        console.log('Received WebSocket message:', message);
+        ws.send('Server received: ' + message);
+      });
+      ws.on('close', () => console.log('WebSocket client disconnected'));
     });
-    ws.on('close', () => console.log('WebSocket client disconnected'));
-  });
 
-  const PORT = process.env.PORT || 5001;
-  server.listen(PORT, () => {
-    console.log(`Local server with WebSocket running on port ${PORT}`);
-  });
-}
+    const PORT = process.env.PORT || 5001;
+    server.listen(PORT, () => {
+      console.log(`WebSocket server running on port ${PORT}`);
+    });
+  } else {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`HTTP server running on port ${PORT}`);
+    });
+  }
+};
+
+// Run the application
+startApplication();
