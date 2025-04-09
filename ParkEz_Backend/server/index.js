@@ -122,7 +122,8 @@ console.log('Exporting handler with serverless-http');
   module.exports = serverless(app);
 
 // Local development with WebSocket (skipped on Vercel)
-if (!process.env.VERCEL) {
+// Replace your existing if (!process.env.VERCEL) block with this:
+if (!process.env.VERCEL && !process.env.VERCEL_DEV) {
   const http = require('http');
   const WebSocket = require('ws');
 
@@ -138,7 +139,7 @@ if (!process.env.VERCEL) {
     ws.on('close', () => console.log('WebSocket client disconnected'));
   });
 
-  const PORT = process.env.PORT || 5002;
+  const PORT = process.env.PORT || 5001;
   server.listen(PORT, () => {
     console.log(`Local server with WebSocket running on port ${PORT}`);
   });
