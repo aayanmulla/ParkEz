@@ -138,7 +138,7 @@ if (!process.env.VERCEL) {
     ws.on('close', () => console.log('WebSocket client disconnected'));
   });
 
-  const PORT = process.env.PORT || 5001;
+  const PORT = process.env.PORT || 5002;
   server.listen(PORT, () => {
     console.log(`Local server with WebSocket running on port ${PORT}`);
   });
