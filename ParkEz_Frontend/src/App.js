@@ -9,6 +9,7 @@ import ForgotPassword from "./screens/ForgotPassword/ForgotPassword.jsx";
 import Payments from "./screens/Payments/Payments.jsx"; // Updated import path
 // import { useEffect } from 'react';
 import API_ENDPOINTS from "./apiEndpoints.js";
+import ResetPassword from "./screens/ResetPassword/ResetPassword";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/bookings" element={<Bookings />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/payments" element={<Payments />} />
       </Routes>
