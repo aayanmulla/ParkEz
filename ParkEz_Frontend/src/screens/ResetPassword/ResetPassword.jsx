@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./ResetPassword.css";
 
 const ResetPassword = () => {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
+  const { token } = useParams();
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,11 +21,15 @@ const ResetPassword = () => {
       return;
     }
 
+    console.log("Token from URL:", token);
+
     try {
-      const res = await axios.post("http://localhost:5001/api/reset-password", {
-        token,
-        password,
-      });
+      const res = await axios.post(
+        `http://localhost:5001/api/reset-password/${token}`,
+        {
+          password,
+        },
+      );
 
       setMessage(res.data.msg);
     } catch (err) {
