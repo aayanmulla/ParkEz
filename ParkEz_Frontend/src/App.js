@@ -10,7 +10,7 @@ import Payments from "./screens/Payments/Payments.jsx"; // Updated import path
 // import { useEffect } from 'react';
 import API_ENDPOINTS from "./apiEndpoints.js";
 import ResetPassword from "./screens/ResetPassword/ResetPassword";
-
+import Ticket from "./screens/Ticket/Ticket.tsx";
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +23,7 @@ const App = () => {
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
         <Route path="/payments" element={<Payments />} />
+        <Route path="/ticket" element={<Ticket />} />
       </Routes>
     </BrowserRouter>
   );
